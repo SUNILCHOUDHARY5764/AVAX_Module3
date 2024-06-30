@@ -23,11 +23,11 @@ To deploy and interact with the token contract, follow these steps:
 1. Deploy the smart contract to the Ethereum network or a local development network using Remix or your preferred Ethereum development environment.
 
 2. Interact with the contract using the following functions:
-   - `mintTokens(address account, uint amount)`: The contract owner can use this function to mint new tokens to the specified address `_address`.
+   - `mintTokens(address account, uint amount)`: The contract owner can use this function to mint new tokens to the specified address `account`.
 
    - `burnTokens(uint amount)`: Any token holder can use this function to burn (destroy) their own tokens.
 
-   - `transferTokens(address account, uint amount)`: Any token holder can use this function to transfer tokens to another address `_toAddress`.
+   - `transferTokens(address account, uint amount)`: Any token holder can use this function to transfer tokens to another address `account`.
 
 ## Help
 
