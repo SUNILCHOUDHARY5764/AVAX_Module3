@@ -1,36 +1,31 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 
-contract ERC20_Token {
-    address public owner;
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-    string public tokenName = "Token";
-    string public tokenAbbrv = "TKN";
-    uint256 public totalTokens =0;
+contract ERC20_Token is ERC20, Ownable {
+    uint256 public totalTokens = 0;
 
-    mapping (address => uint) public balances ;
+    mapping(address => uint256) public balances;
 
-    constructor() {
-        owner = msg.sender;
-        balances[msg.sender] = totalTokens;
-    }
+    constructor() ERC20("Token", "TKN") Ownable(msg.sender) {}
 
-    function mintTokens(address account,uint amount) public {
-        require(account==owner,"Only owner can mint tokens");
+    function mintTokens(address account, uint256 amount) public onlyOwner {
+        require(account==msg.sender,"Only owner can mint tokens");
         totalTokens += amount;
         balances[account]+= amount;
     }
 
-    function burnTokens(uint amount) public {
-        require(balances[msg.sender]>=amount,"Unsufficent Balance");
+    function burnTokens(uint256 amount) public {
+        require(balances[msg.sender]>=amount,"Isufficent Balance");
         totalTokens -= amount;
         balances[msg.sender] -= amount;
     }
 
-    function transferTokens(address account,uint amount) public {
+    function transferTokens(address account, uint256 amount) public {
         require(balances[msg.sender] >= amount, "Unsufficient balance");
         balances[msg.sender] -= amount;
         balances[account] += amount;
     }
-
 }
